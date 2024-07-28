@@ -16,7 +16,8 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
   const params = useParams()
   const router = useRouter()
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent) => {
+    e.stopPropagation
     router.push(`/servers/${id}`)
   }
 

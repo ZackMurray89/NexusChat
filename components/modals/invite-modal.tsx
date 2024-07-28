@@ -11,15 +11,15 @@ import {
 
 import { Check, Copy, RefreshCw } from 'lucide-react'
 
-import { useModal } from '@/hooks/use-modal-store'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useOrigin } from '@/hooks/use-origin'
+import { useModal } from '@/hooks/use-modal-store'
 import axios from 'axios'
 
 export const InviteModal = () => {
-  const { onOpen, isOpen, onClose, type, data } = useModal()
+  const { onOpen, isOpen, onClose, type, data = {} } = useModal()
 
   const [copied, setCopied] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -28,7 +28,7 @@ export const InviteModal = () => {
 
   const isModalOpen = isOpen && type === 'invite'
 
-  const { server } = data
+  const { server } = data || {}
 
   const inviteUrl = `${origin}/invite/${server?.inviteCode}`
 
@@ -42,6 +42,10 @@ export const InviteModal = () => {
   }
 
   const onNew = async () => {
+    if (!server) {
+      console.error('Server data is not defined')
+      return
+    }
     try {
       setIsLoading(true)
 
