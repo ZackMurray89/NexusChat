@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
-interface ActionTooltipProps {
+export interface ActionTooltipProps {
   label: string
   children: React.ReactNode
   side?: 'top' | 'right' | 'bottom' | 'left'
