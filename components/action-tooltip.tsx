@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useState } from 'react'
 
 export interface ActionTooltipProps {
   label: string
@@ -20,13 +21,14 @@ export const ActionTooltip = ({
   side,
   align,
 }: ActionTooltipProps) => {
-  console.log('Props', { label, children, side, align })
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={50}>
+      <Tooltip delayDuration={50} open={isOpen} onOpenChange={setIsOpen}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent side={side} align={align}>
-          <p className='font-semibold text-sm capitalize'>
+          <p className='font-semibold text-sm capitalize z-50'>
             {label.toLowerCase()}
           </p>
         </TooltipContent>

@@ -50,5 +50,3 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
     </ActionTooltip>
   )
 }
-
-export default React.memo(NavigationItem)
