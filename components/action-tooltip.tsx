@@ -20,6 +20,7 @@ export const ActionTooltip = ({
   side,
   align,
 }: ActionTooltipProps) => {
+  console.log('Props', { label, children, side, align })
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>

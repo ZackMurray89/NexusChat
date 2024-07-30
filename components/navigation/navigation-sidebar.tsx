@@ -7,7 +7,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { NavigationItem } from './navigation-item'
 import { ModeToggle } from '@/components/mode-toggle'
 import { UserButton } from '@clerk/nextjs'
-import { ActionTooltipProps } from '../action-tooltip'
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile()

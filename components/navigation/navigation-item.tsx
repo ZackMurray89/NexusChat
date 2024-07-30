@@ -1,5 +1,7 @@
 'use client'
 
+import React, { useCallback } from 'react'
+
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 
@@ -16,9 +18,9 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
   const params = useParams()
   const router = useRouter()
 
-  const onClick = () => {
+  const onClick = useCallback(() => {
     router.push(`/servers/${id}`)
-  }
+  }, [router, id])
 
   return (
     <ActionTooltip side='right' align='center' label={name}>
@@ -48,3 +50,5 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
     </ActionTooltip>
   )
 }
+
+export default React.memo(NavigationItem)
