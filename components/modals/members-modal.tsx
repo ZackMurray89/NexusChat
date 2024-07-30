@@ -103,9 +103,15 @@ export const MembersModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className='bg-white text-black overflow-hidden'>
+      <DialogContent
+        className='bg-white text-black overflow-hidden'
+        aria-describedby='manage-members'
+      >
         <DialogHeader className='pt-8 px-6'>
-          <DialogTitle className='text-2xl text-center font-bold'>
+          <DialogTitle
+            id='manage-members'
+            className='text-2xl text-center font-bold'
+          >
             Manage Members
           </DialogTitle>
           <DialogDescription className='text-center text-zinc-500'>

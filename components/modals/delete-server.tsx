@@ -45,9 +45,15 @@ export const DeleteServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className='bg-white text-black p-0 overflow-hidden'>
+      <DialogContent
+        className='bg-white text-black p-0 overflow-hidden'
+        aria-describedby='delete-server'
+      >
         <DialogHeader className='pt-8 px-6'>
-          <DialogTitle className='text-2xl text-center font-bold'>
+          <DialogTitle
+            id='delete-server'
+            className='text-2xl text-center font-bold'
+          >
             Delete Server
           </DialogTitle>
           <DialogDescription className='text-zinc-500 text-center'>
