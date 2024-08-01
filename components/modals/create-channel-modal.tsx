@@ -140,6 +140,7 @@ export const CreateChannelModal = () => {
                         className='bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0'
                         placeholder='Enter Channel Name...'
                         {...field}
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />
