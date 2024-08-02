@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useModal } from '@/hooks/use-modal-store'
 
 interface ChatItemProps {
   id: string
@@ -57,7 +58,7 @@ export const ChatItem = ({
   socketQuery,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
+  const { onOpen } = useModal()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -99,6 +100,7 @@ export const ChatItem = ({
     form.reset({
       content: content,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content])
 
   const fileType = fileUrl?.split('.').pop()
@@ -223,7 +225,15 @@ export const ChatItem = ({
             </ActionTooltip>
           )}
           <ActionTooltip label='Edit'>
-            <Trash2 className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-600 transition' />
+            <Trash2
+              onClick={() =>
+                onOpen('deleteMessage', {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
+              className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-600 transition'
+            />
           </ActionTooltip>
         </div>
       )}
