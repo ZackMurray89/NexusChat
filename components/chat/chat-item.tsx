@@ -3,8 +3,10 @@
 import { Member, MemberRole, Profile } from '@prisma/client'
 import { UserAvatar } from '../user-avatar'
 import { ActionTooltip } from '../action-tooltip'
-import { FileIcon, ShieldAlert, ShieldCheck } from 'lucide-react'
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash2 } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
 
 interface ChatItemProps {
   id: string
@@ -39,7 +41,11 @@ export const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
+  const [isEditing, setIsEditing] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+
   const fileType = fileUrl?.split('.').pop()
+
   const isAdmin = currentMember.role === MemberRole.ADMIN
   const isModerator = currentMember.role === MemberRole.MODERATOR
   const isOwner = currentMember.id === member.id
@@ -82,23 +88,51 @@ export const ChatItem = ({
                 sizes='(max-width: 192px), (max-height: 192px)'
                 className='object-cover'
               />
-              {isPDF && (
-                <div className='relative flex items-center p-2 mt-2 rounded-md bg-background/10'>
-                  <FileIcon className='h-10 w-10 fill-emerald-200 stroke-emerald-500' />
-                  <a
-                    href={fileUrl}
-                    target='_blank'
-                    rel='noopener nereferrer'
-                    className='ml-2 text-sm text-emerald-500 dark:text-emerald-500 hover:underline'
-                  >
-                    PDF File
-                  </a>
-                </div>
-              )}
             </a>
+          )}
+          {isPDF && (
+            <div className='relative flex items-center p-2 mt-2 rounded-md bg-background/10'>
+              <FileIcon className='h-10 w-10 fill-slate-500 stroke-emerald-400' />
+              <a
+                href={fileUrl}
+                target='_blank'
+                rel='noopener nereferrer'
+                className='ml-2 text-sm text-emerald-500 dark:text-emerald-400 hover:underline'
+              >
+                .PDF File
+              </a>
+            </div>
+          )}
+          {!fileUrl && !isEditing && (
+            <p
+              className={cn(
+                'text-sm text-zinc-600 dark:text-zinc-300',
+                deleted &&
+                  'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1'
+              )}
+            >
+              {content}
+              {isUpdated && !deleted && (
+                <span className='text-[10px] mx-2 text-zinc-500 dark:text-zinc-400'>
+                  (edited)
+                </span>
+              )}
+            </p>
           )}
         </div>
       </div>
+      {canDeleteMessage && (
+        <div className='hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-gray-200 dark:bg-zinc-900 border rounded-sm'>
+          {canEditMessage && (
+            <ActionTooltip label='Edit'>
+              <Edit className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-emerald-400 dark:hover:text-emerald-300 transition' />
+            </ActionTooltip>
+          )}
+          <ActionTooltip label='Edit'>
+            <Trash2 className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-rose-700 dark:hover:text-rose-700 transition' />
+          </ActionTooltip>
+        </div>
+      )}
     </div>
   )
 }
