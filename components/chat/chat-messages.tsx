@@ -12,7 +12,7 @@ import { ChatWelcome } from './chat-welcome'
 import { ChatItem } from './chat-item'
 import { useChatScroll } from '@/hooks/use-chat-scroll'
 
-const DATE_FORMAT = 'dd/mm/yyyy, HH:mm'
+const DATE_FORMAT = 'dd/mm/yyyy, HH:mm aa'
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
