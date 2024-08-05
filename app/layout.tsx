@@ -10,6 +10,8 @@ import { ModalProvider } from '@/components/providers/modal-provider'
 import { cn } from '@/lib/utils'
 import { SocketProvider } from '@/components/providers/socket-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { Suspense } from 'react'
+import Loading from '@/components/loading'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -36,7 +38,9 @@ export default function RootLayout({
           >
             <SocketProvider>
               <ModalProvider />
-              <QueryProvider>{children}</QueryProvider>
+              <QueryProvider>
+                <Suspense fallback={<Loading />}>{children}</Suspense>
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
